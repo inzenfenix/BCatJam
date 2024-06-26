@@ -8,9 +8,10 @@ using UnityEngine.AI;
 public class CaptainCatBehaviour : MonoBehaviour
 {
     public static event EventHandler<Transform> onAttackObject;
+    public static event EventHandler<Vector3> onMoving;
 
-    public static Vector3 currentPos;
-    public static Vector3 behindPos;
+    public Vector3 currentPos;
+    public Vector3 behindPos;
 
     private NavMeshAgent agent;
 
@@ -33,6 +34,7 @@ public class CaptainCatBehaviour : MonoBehaviour
             if (GameManager.instance.HitFloor(out Vector3 pos))
             {
                 agent.destination = pos;
+                onMoving?.Invoke(this, pos * 0.95f + behindPos);
                 return;
             }
         }

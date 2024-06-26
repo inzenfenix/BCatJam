@@ -6,6 +6,8 @@ using UnityEngine.AI;
 
 public class DestroyableBehaviour : MonoBehaviour
 {
+    public static event EventHandler onObjectDestroyed;
+
     [SerializeField] private int numberOfCatsToDestroy;
     [SerializeField] private GameObject destroyedVersion;
 
@@ -15,6 +17,8 @@ public class DestroyableBehaviour : MonoBehaviour
     private int catMask = 12;
 
     private bool beingAttacked = false;
+
+    private Collider[] colliders;
 
     private void Awake()
     {
@@ -48,7 +52,7 @@ public class DestroyableBehaviour : MonoBehaviour
             return;
         }
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, radius, 1 << catMask);
+        colliders = Physics.OverlapSphere(transform.position, radius, 1 << catMask);
 
         if (colliders.Length > 0)
         {
@@ -63,6 +67,7 @@ public class DestroyableBehaviour : MonoBehaviour
 
         if(numberOfCatsToDestroy <= currentCatsOn.Count)
         {
+            onObjectDestroyed?.Invoke(this, EventArgs.Empty);
             Destroy(this.gameObject);
         }
     }

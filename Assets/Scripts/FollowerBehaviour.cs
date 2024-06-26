@@ -20,11 +20,14 @@ public class FollowerBehaviour : MonoBehaviour
     private void OnEnable()
     {
         CaptainCatBehaviour.onAttackObject += CaptainCatBehaviour_onAttackObject;
+        CaptainCatBehaviour.onMoving += CaptainCatBehaviour_onMoving;
     }
+
 
     private void OnDisable()
     {
         CaptainCatBehaviour.onAttackObject -= CaptainCatBehaviour_onAttackObject;
+        CaptainCatBehaviour.onMoving -= CaptainCatBehaviour_onMoving;
     }
 
     private void CaptainCatBehaviour_onAttackObject(object sender, Transform e)
@@ -34,6 +37,11 @@ public class FollowerBehaviour : MonoBehaviour
         attacking = true;
     }
 
+    private void CaptainCatBehaviour_onMoving(object sender, Vector3 e)
+    {
+        agent.destination = e;
+    }
+
     private void Update()
     {
         if(attacking)
@@ -41,7 +49,5 @@ public class FollowerBehaviour : MonoBehaviour
             if(currentlyAttacking == null) attacking = false;
             return;
         }
-
-        agent.destination = CaptainCatBehaviour.currentPos * 0.95f + CaptainCatBehaviour.behindPos;
     }
 }
