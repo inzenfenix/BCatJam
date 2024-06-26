@@ -25,7 +25,7 @@ public class CaptainCatBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
-        DestroyableBehaviour.onObjectDestroyed += DestroyableBehaviour_onObjectDestroyed;
+        DestroyableBehaviour.onObjectGettingDestroyed += DestroyableBehaviour_onObjectDestroyed;
     }
 
     private void DestroyableBehaviour_onObjectDestroyed(object sender, EventArgs e)
@@ -35,13 +35,16 @@ public class CaptainCatBehaviour : MonoBehaviour
 
     private void Update()
     {
-
         if(Input.GetMouseButtonDown(0))
         {
+            if (GameManager.instance.HitFollower(out Transform follower))
+            {
+                follower.GetComponent<FollowerBehaviour>().StartFollowing();
+                return;
+            }
+
             if (GameManager.instance.HitDestroyableInteractable(out Transform destroyablePos))
             {
-                attacking = true;
-
                 onAttackObject?.Invoke(this, destroyablePos);
 
                 return;
@@ -50,12 +53,12 @@ public class CaptainCatBehaviour : MonoBehaviour
             if (GameManager.instance.HitFloor(out Vector3 pos))
             {
                 agent.destination = pos;
-
-                if(!attacking)
-                    onMoving?.Invoke(this, pos * 0.95f);
+                onMoving?.Invoke(this, pos * 0.95f);
 
                 return;
             }
+
+            
         }
 
         behindPos = -transform.forward;

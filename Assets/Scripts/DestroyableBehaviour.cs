@@ -6,9 +6,10 @@ using UnityEngine.AI;
 
 public class DestroyableBehaviour : MonoBehaviour
 {
-    public static event EventHandler onObjectDestroyed;
+    public static event EventHandler onObjectGettingDestroyed;
+    public event EventHandler onChangeAmountOfCats;
 
-    [SerializeField] private int numberOfCatsToDestroy;
+    public int numberOfCatsToDestroy;
     [SerializeField] private GameObject destroyedVersion;
 
     private List<Transform> currentCatsOn;
@@ -18,7 +19,13 @@ public class DestroyableBehaviour : MonoBehaviour
 
     private bool beingAttacked = false;
 
-    private Collider[] colliders;
+    [HideInInspector]
+    public bool gettingDestroyed = false;
+
+    public float timeToBeDestroyed = 5f;
+
+    [HideInInspector]
+    public float currentTime = 0f;
 
     private void Awake()
     {
@@ -45,6 +52,17 @@ public class DestroyableBehaviour : MonoBehaviour
 
     private void Update()
     {
+        if(gettingDestroyed)
+        {
+            currentTime += Time.deltaTime;
+            if(currentTime > timeToBeDestroyed)
+            {
+                Destroy(this.gameObject);
+            }
+
+            return;
+        }
+
         if (!beingAttacked)
         {
             if (currentCatsOn != null)
@@ -52,7 +70,7 @@ public class DestroyableBehaviour : MonoBehaviour
             return;
         }
 
-        colliders = Physics.OverlapSphere(transform.position, radius, 1 << catMask);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, radius, 1 << catMask);
 
         if (colliders.Length > 0)
         {
@@ -61,14 +79,21 @@ public class DestroyableBehaviour : MonoBehaviour
                 if(!currentCatsOn.Contains(collider.transform) && collider.CompareTag("Follower"))
                 {
                     currentCatsOn.Add(collider.transform);
+                    onChangeAmountOfCats?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
 
         if(numberOfCatsToDestroy <= currentCatsOn.Count)
         {
-            onObjectDestroyed?.Invoke(this, EventArgs.Empty);
-            Destroy(this.gameObject);
+            onObjectGettingDestroyed?.Invoke(this, EventArgs.Empty);
+            gettingDestroyed = true;
+            //Destroy(this.gameObject);
         }
+    }
+
+    public int GetAmountOfCats()
+    {
+        return currentCatsOn.Count;
     }
 }

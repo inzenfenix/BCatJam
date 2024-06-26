@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     public LayerMask floorMask;
     public LayerMask destructableMask;
+    public LayerMask catMask;
 
     private void Awake()
     {
@@ -32,7 +33,7 @@ public class GameManager : MonoBehaviour
         Vector3 mousePos = Input.mousePosition;
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 1000, floorMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, 10000, floorMask))
         {
             pos = hit.point;
             return true;
@@ -47,7 +48,7 @@ public class GameManager : MonoBehaviour
         Vector3 mousePos = Input.mousePosition;
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 1000, destructableMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, 10000, destructableMask))
         {
             destroyable = hit.collider.transform;
             return true;
@@ -55,5 +56,28 @@ public class GameManager : MonoBehaviour
 
         destroyable = null;
         return false;
+    }
+
+    public bool HitFollower(out Transform follower)
+    {
+        Vector3 mousePos = Input.mousePosition;
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 10000, catMask))
+        {
+            if (hit.collider.CompareTag("Follower"))
+            {
+                follower = hit.collider.transform;
+                return true;
+            }
+        }
+
+        follower = null;
+        return false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        
     }
 }
