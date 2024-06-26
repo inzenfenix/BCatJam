@@ -10,10 +10,12 @@ public class CaptainCatBehaviour : MonoBehaviour
     public static event EventHandler<Transform> onAttackObject;
     public static event EventHandler<Vector3> onMoving;
 
-    public Vector3 currentPos;
-    public Vector3 behindPos;
+    public static Vector3 currentPos;
+    public static Vector3 behindPos;
 
     private NavMeshAgent agent;
+
+    private bool attacking;
 
     private void Awake()
     {
@@ -21,20 +23,37 @@ public class CaptainCatBehaviour : MonoBehaviour
         agent.destination = transform.position;
     }
 
+    private void OnEnable()
+    {
+        DestroyableBehaviour.onObjectDestroyed += DestroyableBehaviour_onObjectDestroyed;
+    }
+
+    private void DestroyableBehaviour_onObjectDestroyed(object sender, EventArgs e)
+    {
+        attacking = false;
+    }
+
     private void Update()
     {
+
         if(Input.GetMouseButtonDown(0))
         {
             if (GameManager.instance.HitDestroyableInteractable(out Transform destroyablePos))
             {
+                attacking = true;
+
                 onAttackObject?.Invoke(this, destroyablePos);
+
                 return;
             }
 
             if (GameManager.instance.HitFloor(out Vector3 pos))
             {
                 agent.destination = pos;
-                onMoving?.Invoke(this, pos * 0.95f + behindPos);
+
+                if(!attacking)
+                    onMoving?.Invoke(this, pos * 0.95f);
+
                 return;
             }
         }

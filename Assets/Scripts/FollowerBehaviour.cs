@@ -39,7 +39,7 @@ public class FollowerBehaviour : MonoBehaviour
 
     private void CaptainCatBehaviour_onMoving(object sender, Vector3 e)
     {
-        agent.destination = e;
+        //agent.destination = e + CaptainCatBehaviour.behindPos;
     }
 
     private void Update()
@@ -49,5 +49,7 @@ public class FollowerBehaviour : MonoBehaviour
             if(currentlyAttacking == null) attacking = false;
             return;
         }
+
+        agent.destination = CaptainCatBehaviour.currentPos * 0.92f + CaptainCatBehaviour.behindPos;
     }
 }
