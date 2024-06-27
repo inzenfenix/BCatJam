@@ -67,7 +67,7 @@ public class RatBehaviour : MonoBehaviour
         if (colliders.Length > 0)
         {
             int randIndex = UnityEngine.Random.Range(0, colliders.Length);
-            Transform currentCat = colliders[randIndex].transform;
+            currentCat = colliders[randIndex].transform;
             battling = true;
 
             return;
