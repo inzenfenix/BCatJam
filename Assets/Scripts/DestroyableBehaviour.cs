@@ -45,6 +45,11 @@ public class DestroyableBehaviour : MonoBehaviour
         }
     }
 
+    public void BeingAttacked()
+    {
+        beingAttacked = true;
+    }
+
     private void OnDisable()
     {
         CaptainCatBehaviour.onAttackObject -= CaptainCatBehaviour_onAttackObject;

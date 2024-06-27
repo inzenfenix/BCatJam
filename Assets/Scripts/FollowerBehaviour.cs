@@ -9,7 +9,7 @@ public class FollowerBehaviour : MonoBehaviour
 {
     private NavMeshAgent agent;
 
-    private bool attacking = false;
+    public bool attacking = false;
 
     private bool following = false;
 
@@ -56,6 +56,15 @@ public class FollowerBehaviour : MonoBehaviour
     }
 
     private void CaptainCatBehaviour_onAttackObject(object sender, Transform e)
+    {
+        if (!following) return;
+
+        agent.destination = e.position;
+        currentlyAttacking = e.transform;
+        attacking = true;
+    }
+
+    public void AttackObject(Transform e)
     {
         if (!following) return;
 

@@ -17,10 +17,20 @@ public class CaptainCatBehaviour : MonoBehaviour
 
     private bool attacking;
 
+    private List<FollowerBehaviour> cats;
+
+    private int catsToThrow = 0;
+    private int catsThrown = 0;
+
+    private float delay = .4f;
+    private float delayTime = .25f;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.destination = transform.position;
+
+        cats = new List<FollowerBehaviour>();
     }
 
     private void OnEnable()
@@ -39,7 +49,13 @@ public class CaptainCatBehaviour : MonoBehaviour
         {
             if (GameManager.instance.HitFollower(out Transform follower))
             {
-                follower.GetComponent<FollowerBehaviour>().StartFollowing();
+                FollowerBehaviour cat = follower.GetComponent<FollowerBehaviour>();
+
+                if (!cats.Contains(cat))
+                {
+                    cats.Add(cat);
+                    cat.StartFollowing();
+                }
                 return;
             }
 
@@ -59,6 +75,75 @@ public class CaptainCatBehaviour : MonoBehaviour
             }
 
             
+        }
+
+        if(Input.GetMouseButton(1))
+        {
+            if(cats.Count <= 0)
+            {
+                return;
+            }
+
+            if(delay < delayTime)
+            {
+                delay += Time.deltaTime;
+                return;
+            }
+
+            else
+            {
+                delay = 0;
+            }
+
+            if (GameManager.instance.HitDestroyableInteractable(out Transform destroyablePos))
+            {
+                destroyablePos.GetComponent<DestroyableBehaviour>().BeingAttacked();
+
+                if (catsToThrow == 0 || catsToThrow == 1)
+                {
+                    catsToThrow = catsThrown + 1;
+
+                    for (int i = catsThrown; i < catsToThrow; i++)
+                    {
+                        if(i >= cats.Count)
+                        {
+                            break;
+                        }
+
+                        if (!cats[i].attacking)
+                        {
+                            cats[i].AttackObject(destroyablePos);
+                            catsThrown++;
+                        }
+                    }
+
+                    return;
+                }
+
+                catsToThrow *= 2;
+
+                for (int i = catsThrown; i < catsToThrow; i++)
+                {
+                    if (i >= cats.Count)
+                    {
+                        break;
+                    }
+
+                    if (!cats[i].attacking)
+                    {
+                        catsThrown++;
+                        cats[i].AttackObject(destroyablePos);
+                    }
+                }
+
+                return;
+            }
+        }
+
+        if(Input.GetMouseButtonUp(1))
+        {
+            catsToThrow = 0;
+            delay = delayTime + .1f;
         }
 
         behindPos = -transform.forward;
