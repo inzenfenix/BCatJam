@@ -70,7 +70,7 @@ public class FollowerBehaviour : MonoBehaviour
 
     private IEnumerator WaitALittleBit()
     {
-        yield return new WaitForSeconds(.8f);
+        yield return new WaitForSeconds(.9f);
         following = true;
     }
 
