@@ -23,7 +23,7 @@ public class RatBehaviour : MonoBehaviour
     [SerializeField] private LayerMask catMask;
 
     private float delay = 0f;
-    private float delayTime = 1f;
+    private float delayTime = 1.25f;
 
     [SerializeField] private int damagePerTickRate = 1;
 
