@@ -25,13 +25,13 @@ public class CatAnimatorBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (agent.velocity.magnitude > 0.5f && !walking)
+        if (agent.velocity.magnitude > 0.75f && !walking)
         {
             walking = true;
             animator.SetTrigger("Walking");
         }
 
-        if(agent.velocity.magnitude <= 0.5f && walking)
+        if(agent.velocity.magnitude <= 0.75f && walking)
         {
             walking = false;
             animator.SetTrigger("Idle");

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class FollowerBehaviour : MonoBehaviour
     private bool following = false;
 
     private Transform currentlyAttacking;
+
+    public event EventHandler onStartFollowing;
 
     private void Awake()
     {
@@ -61,11 +64,18 @@ public class FollowerBehaviour : MonoBehaviour
 
     public void StartFollowing()
     {
+        StartCoroutine(WaitALittleBit());
+        onStartFollowing?.Invoke(this, EventArgs.Empty);
+    }
+
+    private IEnumerator WaitALittleBit()
+    {
+        yield return new WaitForSeconds(.8f);
         following = true;
     }
 
     public void StopFollowing()
     {
-        following = true;
+        following = false;
     }
 }
