@@ -17,6 +17,10 @@ public class FollowerBehaviour : MonoBehaviour
 
     public event EventHandler onStartFollowing;
 
+    public event EventHandler onDeath;
+
+    private int hp = 3;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -80,6 +84,11 @@ public class FollowerBehaviour : MonoBehaviour
 
     public void StartFollowing()
     {
+        if (hp <= 0)
+        {
+            return;
+        }
+
         StartCoroutine(WaitALittleBit());
         onStartFollowing?.Invoke(this, EventArgs.Empty);
     }
@@ -93,5 +102,22 @@ public class FollowerBehaviour : MonoBehaviour
     public void StopFollowing()
     {
         following = false;
+    }
+
+    public void GetHit(int hit)
+    {
+        hp -= hit;
+
+        if(hp <= 0)
+        {
+            hp = 0;
+            onDeath?.Invoke(this, EventArgs.Empty);
+            StopFollowing();
+        }
+    }
+
+    public int GetHealth()
+    {
+        return hp;
     }
 }

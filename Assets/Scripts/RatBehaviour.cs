@@ -22,6 +22,11 @@ public class RatBehaviour : MonoBehaviour
 
     [SerializeField] private LayerMask catMask;
 
+    private float delay = 0f;
+    private float delayTime = 1f;
+
+    [SerializeField] private int damagePerTickRate = 1;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -39,11 +44,31 @@ public class RatBehaviour : MonoBehaviour
         if(battling && currentCat != null)
         {
             agent.destination = currentCat.position;
+
+            if(delay < delayTime)
+            {
+                delay += Time.deltaTime;
+                return;
+            }
+
+            else
+            {
+                delay = 0;
+            }
+
+            currentCat.GetComponent<FollowerBehaviour>().GetHit(damagePerTickRate);
+
+            if(currentCat.GetComponent<FollowerBehaviour>().GetHealth() <= 0)
+            {
+                currentCat = null;
+            }
+
             return;
         }
 
         if(battling && currentCat == null)
         {
+
             Vector3 closestPosition = positions[0];
             float minDistance = Vector3.Distance(transform.position, closestPosition);
             curPos = 0;
@@ -59,6 +84,7 @@ public class RatBehaviour : MonoBehaviour
                 }
             }
 
+            delay = 0;
             battling = false;
         }
 
@@ -66,9 +92,22 @@ public class RatBehaviour : MonoBehaviour
 
         if (colliders.Length > 0)
         {
-            int randIndex = UnityEngine.Random.Range(0, colliders.Length);
-            currentCat = colliders[randIndex].transform;
-            battling = true;
+            foreach(Collider collider in colliders)
+            {
+                FollowerBehaviour tempCat = collider.GetComponent<FollowerBehaviour>();
+
+                if (tempCat.GetHealth() <= 0)
+                {
+                    continue;
+                }
+
+                else
+                {
+                    currentCat = tempCat.transform;
+                    battling = true;
+                    break;
+                }
+            }            
 
             return;
         }

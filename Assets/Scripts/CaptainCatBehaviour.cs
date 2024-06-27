@@ -23,7 +23,7 @@ public class CaptainCatBehaviour : MonoBehaviour
     private int catsThrown = 0;
 
     private float delay = .4f;
-    private float delayTime = .25f;
+    private float delayTime = .35f;
 
     private void Awake()
     {
@@ -53,6 +53,7 @@ public class CaptainCatBehaviour : MonoBehaviour
 
                 if (!cats.Contains(cat))
                 {
+                    cat.onDeath += Cat_onDeath;
                     cats.Add(cat);
                     cat.StartFollowing();
                 }
@@ -148,5 +149,14 @@ public class CaptainCatBehaviour : MonoBehaviour
 
         behindPos = -transform.forward;
         currentPos = transform.position;
+    }
+
+    private void Cat_onDeath(object sender, EventArgs e)
+    {
+        FollowerBehaviour cat = sender as FollowerBehaviour;
+
+        cats.Remove(cat);
+
+        cat.onDeath -= Cat_onDeath;
     }
 }
