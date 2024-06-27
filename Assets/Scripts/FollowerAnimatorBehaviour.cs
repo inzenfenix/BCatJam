@@ -38,13 +38,17 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
 
     private void FollowerBehaviour_onStartFollowing(object sender, System.EventArgs e)
     {
-        animator.SetTrigger("Chosen");
-        StartCoroutine(WaitALittleBit());
+        if (!startedFunctioning)
+        {
+            animator.SetTrigger("Chosen");
+
+            StartCoroutine(WaitALittleBit());
+        }
     }
 
     private IEnumerator WaitALittleBit()
     {
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(1f);
         startedFunctioning = true;
     }
 
@@ -52,13 +56,13 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
     {
         if (!startedFunctioning) return;
 
-        if (agent.velocity.magnitude > 0.75f && !walking)
+        if (agent.velocity.magnitude > 0.45f && !walking)
         {
             walking = true;
             animator.SetTrigger("Walking");
         }
 
-        if (agent.velocity.magnitude <= 0.75f && walking)
+        if (agent.velocity.magnitude <= 0.45f && walking)
         {
             walking = false;
             animator.SetTrigger("Idle");

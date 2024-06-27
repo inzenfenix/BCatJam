@@ -45,7 +45,14 @@ public class FollowerBehaviour : MonoBehaviour
 
         if (!following) return;
 
+        
+
         agent.destination = CaptainCatBehaviour.currentPos * 0.92f + CaptainCatBehaviour.behindPos;
+
+        if (Vector3.Distance(transform.position, agent.destination) < 1.4f)
+        {
+            agent.destination = transform.position;
+        }
     }
 
     private void CaptainCatBehaviour_onAttackObject(object sender, Transform e)
@@ -70,7 +77,7 @@ public class FollowerBehaviour : MonoBehaviour
 
     private IEnumerator WaitALittleBit()
     {
-        yield return new WaitForSeconds(.9f);
+        yield return new WaitForSeconds(1f);
         following = true;
     }
 
