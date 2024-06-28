@@ -10,6 +10,26 @@ public class GameManager : MonoBehaviour
     public LayerMask destructableMask;
     public LayerMask catMask;
 
+    private static float currentFillMeter;
+
+    public static float CurrentFillMeter
+    {
+        get
+        {
+            return currentFillMeter;
+        }
+
+        set
+        {
+            currentFillMeter = Mathf.Clamp(value, 0.0f, 1.0f);
+            if(currentFillMeter >= 1.0f)
+            {
+                Debug.Log("Game Finished");
+                Application.Quit();
+            }
+        }
+    }
+
     private void Awake()
     {
         instance = this;
@@ -74,10 +94,5 @@ public class GameManager : MonoBehaviour
 
         follower = null;
         return false;
-    }
-
-    private void OnDrawGizmos()
-    {
-        
     }
 }

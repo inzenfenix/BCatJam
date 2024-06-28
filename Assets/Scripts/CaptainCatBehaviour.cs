@@ -15,7 +15,7 @@ public class CaptainCatBehaviour : MonoBehaviour
 
     private NavMeshAgent agent;
 
-    private bool attacking;
+    //private bool attacking;
 
     private List<FollowerBehaviour> cats;
 
@@ -40,7 +40,7 @@ public class CaptainCatBehaviour : MonoBehaviour
 
     private void DestroyableBehaviour_onObjectDestroyed(object sender, EventArgs e)
     {
-        attacking = false;
+        //attacking = false;
     }
 
     private void Update()

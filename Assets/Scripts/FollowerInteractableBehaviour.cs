@@ -27,6 +27,8 @@ public class FollowerInteractableBehaviour : MonoBehaviour
     [HideInInspector]
     public float currentTime = 0f;
 
+    [SerializeField] private float fillMeterAmount = .1f;
+
     private void Awake()
     {
         currentCatsOn = new List<Transform>();
@@ -62,6 +64,15 @@ public class FollowerInteractableBehaviour : MonoBehaviour
             currentTime += Time.deltaTime;
             if(currentTime > timeToBeDestroyed)
             {
+                if (this.CompareTag("Rat"))
+                {
+                    GameManager.CurrentFillMeter -= fillMeterAmount;
+                }
+
+                if(this.CompareTag("Destroyable"))
+                {
+                    GameManager.CurrentFillMeter += fillMeterAmount;
+                }
                 Destroy(this.gameObject);
             }
 
@@ -81,7 +92,7 @@ public class FollowerInteractableBehaviour : MonoBehaviour
         {
             foreach(Collider collider in colliders)
             {
-                if(!currentCatsOn.Contains(collider.transform) && collider.CompareTag("Follower"))
+                if(!currentCatsOn.Contains(collider.transform) && collider.CompareTag("Follower") && collider.GetComponent<FollowerBehaviour>().attacking)
                 {
                     currentCatsOn.Add(collider.transform);
                     onChangeAmountOfCats?.Invoke(this, EventArgs.Empty);

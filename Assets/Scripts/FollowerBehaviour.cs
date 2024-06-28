@@ -55,6 +55,7 @@ public class FollowerBehaviour : MonoBehaviour
                 onFinishedInteracting?.Invoke(this, EventArgs.Empty);
                 attacking = false;
             }
+
             return;
         }
 
