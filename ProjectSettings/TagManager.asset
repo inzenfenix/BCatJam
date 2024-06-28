@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Follower
   - Captain
+  - Rat
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - 
   - Cat
   - Floor
-  - Destroyable
+  - Interactable
   - Captain
   - 
   - 

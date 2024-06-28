@@ -19,6 +19,8 @@ public class FollowerBehaviour : MonoBehaviour
 
     public event EventHandler onDeath;
 
+    public event EventHandler onFinishedInteracting;
+
     private int hp = 3;
 
     private void Awake()
@@ -43,13 +45,20 @@ public class FollowerBehaviour : MonoBehaviour
     {
         if (attacking)
         {
-            if (currentlyAttacking == null) attacking = false;
+            if(currentlyAttacking != null)
+            {
+                agent.destination = currentlyAttacking.position;
+            }
+
+            if (currentlyAttacking == null)
+            {
+                onFinishedInteracting?.Invoke(this, EventArgs.Empty);
+                attacking = false;
+            }
             return;
         }
 
         if (!following) return;
-
-        
 
         agent.destination = CaptainCatBehaviour.currentPos * 0.92f + CaptainCatBehaviour.behindPos;
 
@@ -86,7 +95,8 @@ public class FollowerBehaviour : MonoBehaviour
     {
         if (hp <= 0)
         {
-            return;
+            hp = 3;
+            
         }
 
         StartCoroutine(WaitALittleBit());

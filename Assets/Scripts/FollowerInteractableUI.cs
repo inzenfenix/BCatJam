@@ -4,20 +4,20 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(DestroyableBehaviour))]
-public class DestroyableUI : MonoBehaviour
+[RequireComponent(typeof(FollowerInteractableBehaviour))]
+public class FollowerInteractableUI : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI text;
     [SerializeField] Image fillImage;
     [SerializeField] Image borderImage;
 
-    private DestroyableBehaviour mDestroyable;
+    private FollowerInteractableBehaviour mDestroyable;
 
     private float fadeIn = 9f;
 
     private void Awake()
     {
-        mDestroyable = GetComponent<DestroyableBehaviour>();
+        mDestroyable = GetComponent<FollowerInteractableBehaviour>();
         text.text = "0/" + mDestroyable.numberOfCatsToDestroy.ToString();
 
     }

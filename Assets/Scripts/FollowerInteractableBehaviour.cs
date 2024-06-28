@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class DestroyableBehaviour : MonoBehaviour
+public class FollowerInteractableBehaviour : MonoBehaviour
 {
     public static event EventHandler onObjectGettingDestroyed;
     public event EventHandler onChangeAmountOfCats;

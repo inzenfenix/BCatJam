@@ -35,7 +35,7 @@ public class CaptainCatBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
-        DestroyableBehaviour.onObjectGettingDestroyed += DestroyableBehaviour_onObjectDestroyed;
+        FollowerInteractableBehaviour.onObjectGettingDestroyed += DestroyableBehaviour_onObjectDestroyed;
     }
 
     private void DestroyableBehaviour_onObjectDestroyed(object sender, EventArgs e)
@@ -54,6 +54,7 @@ public class CaptainCatBehaviour : MonoBehaviour
                 if (!cats.Contains(cat))
                 {
                     cat.onDeath += Cat_onDeath;
+                    cat.onFinishedInteracting += Cat_onFinishedInteracting;
                     cats.Add(cat);
                     cat.StartFollowing();
                 }
@@ -96,9 +97,9 @@ public class CaptainCatBehaviour : MonoBehaviour
                 delay = 0;
             }
 
-            if (GameManager.instance.HitDestroyableInteractable(out Transform destroyablePos))
+            if (GameManager.instance.HitDestroyableInteractable(out Transform interactable))
             {
-                destroyablePos.GetComponent<DestroyableBehaviour>().BeingAttacked();
+                interactable.GetComponent<FollowerInteractableBehaviour>().BeingAttacked();
 
                 if (catsToThrow == 0 || catsToThrow == 1)
                 {
@@ -113,7 +114,7 @@ public class CaptainCatBehaviour : MonoBehaviour
 
                         if (!cats[i].attacking)
                         {
-                            cats[i].AttackObject(destroyablePos);
+                            cats[i].AttackObject(interactable);
                             catsThrown++;
                         }
                     }
@@ -133,7 +134,7 @@ public class CaptainCatBehaviour : MonoBehaviour
                     if (!cats[i].attacking)
                     {
                         catsThrown++;
-                        cats[i].AttackObject(destroyablePos);
+                        cats[i].AttackObject(interactable);
                     }
                 }
 
@@ -151,12 +152,18 @@ public class CaptainCatBehaviour : MonoBehaviour
         currentPos = transform.position;
     }
 
+    private void Cat_onFinishedInteracting(object sender, EventArgs e)
+    {
+        catsThrown--;
+    }
+
     private void Cat_onDeath(object sender, EventArgs e)
     {
         FollowerBehaviour cat = sender as FollowerBehaviour;
 
         cats.Remove(cat);
 
+        cat.onFinishedInteracting -= Cat_onFinishedInteracting;;
         cat.onDeath -= Cat_onDeath;
     }
 }

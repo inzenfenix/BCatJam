@@ -17,12 +17,12 @@ public class NavMeshBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
-        DestroyableBehaviour.onObjectGettingDestroyed += BakeMesh;
+        FollowerInteractableBehaviour.onObjectGettingDestroyed += BakeMesh;
     }
 
     private void OnDisable()
     {
-        DestroyableBehaviour.onObjectGettingDestroyed -= BakeMesh;
+        FollowerInteractableBehaviour.onObjectGettingDestroyed -= BakeMesh;
     }
 
     private void BakeMesh(object sender, EventArgs e)
