@@ -27,6 +27,9 @@ public class FollowerInteractableBehaviour : MonoBehaviour
     [HideInInspector]
     public float currentTime = 0f;
 
+    private float interactionSpeedMultiplier = 1f;
+    private float interactionSpeedMultiplierDefault = 1f;
+
     [SerializeField] private float fillMeterAmount = .1f;
 
     private void Awake()
@@ -61,7 +64,7 @@ public class FollowerInteractableBehaviour : MonoBehaviour
     {
         if(gettingDestroyed)
         {
-            currentTime += Time.deltaTime;
+            currentTime += Time.deltaTime * interactionSpeedMultiplier;
             if(currentTime > timeToBeDestroyed)
             {
                 if (this.CompareTag("Rat"))
@@ -75,8 +78,6 @@ public class FollowerInteractableBehaviour : MonoBehaviour
                 }
                 Destroy(this.gameObject);
             }
-
-            return;
         }
 
         if (!beingAttacked)
@@ -100,11 +101,18 @@ public class FollowerInteractableBehaviour : MonoBehaviour
             }
         }
 
-        if(numberOfCatsToDestroy <= currentCatsOn.Count)
+        if(numberOfCatsToDestroy <= currentCatsOn.Count && !gettingDestroyed)
         {
             onObjectGettingDestroyed?.Invoke(this, EventArgs.Empty);
             gettingDestroyed = true;
             //Destroy(this.gameObject);
+        }
+
+        else if(numberOfCatsToDestroy <= currentCatsOn.Count && gettingDestroyed)
+        {
+            float multiplier = (currentCatsOn.Count - numberOfCatsToDestroy) / 10;
+
+            interactionSpeedMultiplier = interactionSpeedMultiplierDefault + multiplier;
         }
     }
 

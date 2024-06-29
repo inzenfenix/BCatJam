@@ -8,6 +8,7 @@ using UnityEngine.AI;
 public class CaptainCatBehaviour : MonoBehaviour
 {
     public static event EventHandler<Transform> onAttackObject;
+    public static event EventHandler<Transform> onAttackObjectForUI;
     public static event EventHandler<Vector3> onMoving;
 
     public static Vector3 currentPos;
@@ -64,6 +65,7 @@ public class CaptainCatBehaviour : MonoBehaviour
             if (GameManager.instance.HitDestroyableInteractable(out Transform destroyablePos))
             {
                 onAttackObject?.Invoke(this, destroyablePos);
+                onAttackObjectForUI?.Invoke(this, destroyablePos);
 
                 return;
             }
@@ -97,9 +99,15 @@ public class CaptainCatBehaviour : MonoBehaviour
                 delay = 0;
             }
 
+            if(catsThrown >= cats.Count)
+            {
+                return;
+            }
+
             if (GameManager.instance.HitDestroyableInteractable(out Transform interactable))
             {
                 interactable.GetComponent<FollowerInteractableBehaviour>().BeingAttacked();
+                onAttackObjectForUI?.Invoke(this, interactable);
 
                 if (catsToThrow == 0 || catsToThrow == 1)
                 {
@@ -107,15 +115,18 @@ public class CaptainCatBehaviour : MonoBehaviour
 
                     for (int i = catsThrown; i < catsToThrow; i++)
                     {
-                        if(i >= cats.Count)
+                        if(i >= cats.Count || i < 0)
                         {
                             break;
                         }
 
-                        if (!cats[i].attacking)
+                        if (i < cats.Count)
                         {
-                            cats[i].AttackObject(interactable);
-                            catsThrown++;
+                            if (!cats[i].attacking)
+                            {
+                                catsThrown++;
+                                cats[i].AttackObject(interactable);
+                            }
                         }
                     }
 

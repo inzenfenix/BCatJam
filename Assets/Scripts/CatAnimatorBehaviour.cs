@@ -23,18 +23,37 @@ public class CatAnimatorBehaviour : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        CaptainCatBehaviour.onAttackObjectForUI += CaptainCatBehaviour_onAttackObject;
+    }
+
+    private void OnDisable()
+    {
+        CaptainCatBehaviour.onAttackObjectForUI -= CaptainCatBehaviour_onAttackObject;
+    }
+
+    private void CaptainCatBehaviour_onAttackObject(object sender, Transform e)
+    {
+        animator.SetTrigger("Charge");
+        agent.destination = transform.position;
+        agent.transform.forward = e.position - transform.position;
+    }
+
     private void Update()
     {
         if (agent.velocity.magnitude > 0.75f && !walking)
         {
             walking = true;
             animator.SetTrigger("Walking");
+            animator.SetBool("IsWalking", true);
         }
 
         if(agent.velocity.magnitude <= 0.75f && walking)
         {
             walking = false;
             animator.SetTrigger("Idle");
+            animator.SetBool("IsWalking", false);
         }
     }
 }
