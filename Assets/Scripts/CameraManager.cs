@@ -18,6 +18,8 @@ public class CameraManager : MonoBehaviour
     private float delay = 0.0f;
     private float mouseDirection;
 
+    [SerializeField] private float distanceFromWall = 15;
+
     [SerializeField] private LayerMask wallMask;
     private void Awake()
     {
@@ -45,9 +47,37 @@ public class CameraManager : MonoBehaviour
 
         _camera.fieldOfView = Mathf.Lerp(minZoom, maxZoom, zoom);
 
-        Vector3 offset = originalPos;
+        Vector3 offset = follow.position;
 
-        Vector3 finalPos = follow.position + offset;
+        if(Physics.Raycast(follow.position, Vector3.right, out RaycastHit hit, distanceFromWall, wallMask))
+        {
+            Vector3 distance = follow.position - hit.point;
+
+            offset.x += distanceFromWall - distance.x;
+        }
+
+        if (Physics.Raycast(follow.position, -Vector3.right, out hit, distanceFromWall, wallMask))
+        {
+            Vector3 distance =  follow.position - hit.point;
+
+            offset.x += distanceFromWall - distance.x;
+        }
+
+        if (Physics.Raycast(follow.position, Vector3.forward, out hit, distanceFromWall, wallMask))
+        {
+            Vector3 distance = follow.position - hit.point;
+
+            offset.z += distanceFromWall - distance.z;
+        }
+
+        if (Physics.Raycast(follow.position, -Vector3.forward, out hit, distanceFromWall, wallMask))
+        {
+            Vector3 distance = follow.position - hit.point;
+
+            offset.z += distanceFromWall - distance.z;
+        }
+
+        Vector3 finalPos = originalPos + offset;
 
         _camera.transform.position = finalPos;
 
