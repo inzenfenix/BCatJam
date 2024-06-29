@@ -17,6 +17,8 @@ public class BridgeInteractableBehaviour : FollowerInteractableBehaviour
 
     private bool gettingPushed = false;
 
+    [SerializeField] private GameObject canvas;
+
     protected override void Awake()
     {
         base.Awake();
@@ -49,10 +51,14 @@ public class BridgeInteractableBehaviour : FollowerInteractableBehaviour
     {
         float time = 0;
         transform.gameObject.layer = 0;
+        canvas.SetActive(false);
+
+        float speed = 1.0f;
 
         while (time < 1.0f)
         {
-            time += Time.deltaTime;
+            time += Time.deltaTime * speed;
+            speed += .15f;
             transform.rotation = Quaternion.Slerp(originalRotation, finalRotation, time);
             yield return new WaitForSeconds(.01f);
         }

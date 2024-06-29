@@ -19,6 +19,7 @@ public class FollowerBehaviour : MonoBehaviour
 
     public event EventHandler onDeath;
 
+    public event EventHandler<Transform> onStartedInteracting;
     public event EventHandler onFinishedInteracting;
 
     private int hp = 3;
@@ -86,6 +87,7 @@ public class FollowerBehaviour : MonoBehaviour
     {
         if (!following) return;
 
+        onStartedInteracting?.Invoke(this, e);
         agent.destination = e.position;
         currentlyAttacking = e.transform;
         attacking = true;

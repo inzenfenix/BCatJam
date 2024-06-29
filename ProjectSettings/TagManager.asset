@@ -8,6 +8,7 @@ TagManager:
   - Captain
   - Rat
   - Destroyable
+  - Bridge
   layers:
   - Default
   - TransparentFX

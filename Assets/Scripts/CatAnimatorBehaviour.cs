@@ -45,14 +45,12 @@ public class CatAnimatorBehaviour : MonoBehaviour
         if (agent.velocity.magnitude > 0.75f && !walking)
         {
             walking = true;
-            animator.SetTrigger("Walking");
             animator.SetBool("IsWalking", true);
         }
 
         if(agent.velocity.magnitude <= 0.75f && walking)
         {
             walking = false;
-            animator.SetTrigger("Idle");
             animator.SetBool("IsWalking", false);
         }
     }
