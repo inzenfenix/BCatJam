@@ -3937,7 +3937,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   follow: {fileID: 1762801179}
   zoomSpeed: 7
-  distanceFromWall: 15
+  distanceFromWall: 14
   wallMask:
     serializedVersion: 2
     m_Bits: 65536
