@@ -163,7 +163,7 @@ Material:
     - _LightmapDirectionYaw: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _OutlineDepthOffset: 0.076
+    - _OutlineDepthOffset: 0.079
     - _OutlineEnabled: 1
     - _OutlineScale: 1
     - _OutlineSpace: 0
