@@ -20,6 +20,9 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
 
     Transform attackingTransform;
 
+    [SerializeField] private AudioSource startSource;
+    [SerializeField] private AudioClip[] startClips;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -75,6 +78,12 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
     {
         if (!startedFunctioning)
         {
+            if (startClips.Length > 0)
+            {
+                startSource.clip = startClips[Random.Range(0, startClips.Length)];
+                startSource.Play();
+            }
+
             animator.SetTrigger("Chosen");
 
             StartCoroutine(WaitALittleBit());
