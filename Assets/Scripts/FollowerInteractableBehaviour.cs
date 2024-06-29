@@ -10,14 +10,14 @@ public class FollowerInteractableBehaviour : MonoBehaviour
     public event EventHandler onChangeAmountOfCats;
 
     public int numberOfCatsToDestroy;
-    [SerializeField] private GameObject destroyedVersion;
+    [SerializeField] protected GameObject destroyedVersion;
 
-    private List<Transform> currentCatsOn;
-    [SerializeField] private float radius = 6f;
+    protected List<Transform> currentCatsOn;
+    [SerializeField] protected float radius = 6f;
 
-    private int catMask = 12;
+    protected int catMask = 12;
 
-    private bool beingAttacked = false;
+    protected bool beingAttacked = false;
 
     [HideInInspector]
     public bool gettingDestroyed = false;
@@ -27,12 +27,12 @@ public class FollowerInteractableBehaviour : MonoBehaviour
     [HideInInspector]
     public float currentTime = 0f;
 
-    private float interactionSpeedMultiplier = 1f;
-    private float interactionSpeedMultiplierDefault = 1f;
+    protected float interactionSpeedMultiplier = 1f;
+    protected float interactionSpeedMultiplierDefault = 1f;
 
-    [SerializeField] private float fillMeterAmount = .1f;
+    [SerializeField] protected float fillMeterAmount = .1f; 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         currentCatsOn = new List<Transform>();
     }
@@ -60,7 +60,7 @@ public class FollowerInteractableBehaviour : MonoBehaviour
         CaptainCatBehaviour.onAttackObject -= CaptainCatBehaviour_onAttackObject;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if(gettingDestroyed)
         {
@@ -76,7 +76,9 @@ public class FollowerInteractableBehaviour : MonoBehaviour
                 {
                     GameManager.CurrentFillMeter += fillMeterAmount;
                 }
-                Destroy(this.gameObject);
+
+                onObjectGettingDestroyed?.Invoke(this, EventArgs.Empty);
+                OnDeath();
             }
         }
 
@@ -103,7 +105,6 @@ public class FollowerInteractableBehaviour : MonoBehaviour
 
         if(numberOfCatsToDestroy <= currentCatsOn.Count && !gettingDestroyed)
         {
-            onObjectGettingDestroyed?.Invoke(this, EventArgs.Empty);
             gettingDestroyed = true;
             //Destroy(this.gameObject);
         }
@@ -114,6 +115,11 @@ public class FollowerInteractableBehaviour : MonoBehaviour
 
             interactionSpeedMultiplier = interactionSpeedMultiplierDefault + multiplier;
         }
+    }
+
+    protected virtual void OnDeath()
+    {
+        Destroy(this.gameObject);
     }
 
     public int GetAmountOfCats()

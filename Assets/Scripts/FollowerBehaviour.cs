@@ -32,13 +32,26 @@ public class FollowerBehaviour : MonoBehaviour
     {
         CaptainCatBehaviour.onAttackObject += CaptainCatBehaviour_onAttackObject;
         CaptainCatBehaviour.onMoving += CaptainCatBehaviour_onMoving;
+
+        FollowerInteractableBehaviour.onObjectGettingDestroyed += FollowerInteractableBehaviour_onObjectGettingDestroyed;
     }
 
+    private void FollowerInteractableBehaviour_onObjectGettingDestroyed(object sender, EventArgs e)
+    {
+        Transform transform = (sender as FollowerInteractableBehaviour).transform;
+
+        if(transform == currentlyAttacking)
+        {
+            currentlyAttacking = null;
+        }
+    }
 
     private void OnDisable()
     {
         CaptainCatBehaviour.onAttackObject -= CaptainCatBehaviour_onAttackObject;
         CaptainCatBehaviour.onMoving -= CaptainCatBehaviour_onMoving;
+
+        FollowerInteractableBehaviour.onObjectGettingDestroyed -= FollowerInteractableBehaviour_onObjectGettingDestroyed;
     }
 
     private void Update()
