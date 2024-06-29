@@ -12,11 +12,8 @@ public class CameraManager : MonoBehaviour
     private Vector3 originalPos;
 
     private float zoom;
-    private float minZoom = 0.4f;
-    private float maxZoom = 1.0f;
-
-    private float maxDistance = 1.2f;
-    private float minDistance = 0.1f;
+    private float minZoom = 25f;
+    private float maxZoom = 60f;
 
     private float delay = 0.0f;
     private float mouseDirection;
@@ -46,7 +43,9 @@ public class CameraManager : MonoBehaviour
 
         zoom = Mathf.Clamp(zoom, minZoom, maxZoom);
 
-        Vector3 offset = Vector3.Lerp(originalPos * minDistance, originalPos * maxDistance, zoom);
+        _camera.fieldOfView = zoom;
+
+        Vector3 offset = originalPos;
 
         Vector3 finalPos = follow.position + offset;
 
