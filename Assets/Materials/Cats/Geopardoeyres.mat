@@ -10,25 +10,23 @@ Material:
   m_Name: Geopardoeyres
   m_Shader: {fileID: 4800000, guid: bee44b4a58655ee4cbff107302a3e131, type: 3}
   m_Parent: {fileID: 2100000, guid: 99fe868e825ba2542a7b01a31953823a, type: 2}
-  m_ModifiedSerializedProperties: 0
+  m_ModifiedSerializedProperties: 16
   m_ValidKeywords:
-  - DR_ENABLE_LIGHTMAP_DIR
-  - DR_OUTLINE_ON
-  - DR_OUTLINE_SMOOTH_NORMALS
+  - _CELPRIMARYMODE_SINGLE
   - _DETAILMAPBLENDINGMODE_MULTIPLY
   - _GRADIENTSPACE_WORLD
   - _OUTLINESPACE_SCREEN
   - _TEXTUREBLENDINGMODE_MULTIPLY
-  - _UNITYSHADOW_OCCLUSION
   m_InvalidKeywords:
-  - _CELPRIMARYMODE_NONE
   - _UNITYSHADOWMODE_NONE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
+  disabledShaderPasses:
+  - SRPDEFAULTUNLIT
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -45,4 +43,5 @@ Material:
     m_Floats: []
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorDim: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
