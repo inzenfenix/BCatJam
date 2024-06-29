@@ -41,9 +41,9 @@ public class CameraManager : MonoBehaviour
             delay -= Time.deltaTime;
         }
 
-        zoom = Mathf.Clamp(zoom, minZoom, maxZoom);
+        zoom = Mathf.Clamp(zoom, 0, 1);
 
-        _camera.fieldOfView = zoom;
+        _camera.fieldOfView = Mathf.Lerp(minZoom, maxZoom, zoom);
 
         Vector3 offset = originalPos;
 
