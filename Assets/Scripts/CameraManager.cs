@@ -21,6 +21,7 @@ public class CameraManager : MonoBehaviour
     private float delay = 0.0f;
     private float mouseDirection;
 
+    [SerializeField] private LayerMask wallMask;
     private void Awake()
     {
         _camera = GetComponent<Camera>();
@@ -46,6 +47,11 @@ public class CameraManager : MonoBehaviour
         zoom = Mathf.Clamp(zoom, minZoom, maxZoom);
 
         Vector3 offset = Vector3.Lerp(originalPos * minDistance, originalPos * maxDistance, zoom);
-        _camera.transform.position = follow.position + offset;
+
+        Vector3 finalPos = follow.position + offset;
+
+        _camera.transform.position = finalPos;
+
+        
     }
 }
