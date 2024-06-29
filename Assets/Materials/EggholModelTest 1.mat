@@ -26,6 +26,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - DR_ENABLE_LIGHTMAP_DIR
+  - DR_GRADIENT_ON
   - DR_OUTLINE_ON
   - DR_OUTLINE_SMOOTH_NORMALS
   - DR_RIM_ON
@@ -142,19 +143,19 @@ Material:
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _FlatRimEdgeSmoothness: 0.5
-    - _FlatRimLightAlign: 0.25
-    - _FlatRimSize: 0.479
+    - _FlatRimLightAlign: 0.434
+    - _FlatRimSize: 0.517
     - _FlatSpecularEdgeSmoothness: 0.127
-    - _FlatSpecularSize: 0.161
+    - _FlatSpecularSize: 0.186
     - _Flatness: 1
     - _FlatnessExtra: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _GradientAngle: 0
+    - _GradientAngle: 169
     - _GradientCenterX: 0
     - _GradientCenterY: 0
-    - _GradientEnabled: 0
+    - _GradientEnabled: 1
     - _GradientSize: 10
     - _GradientSpace: 0
     - _LightContribution: 0
@@ -173,9 +174,9 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _RimEnabled: 1
-    - _SelfShadingSize: 0.72
+    - _SelfShadingSize: 0.447
     - _SelfShadingSizeExtra: 0.6
-    - _ShadowEdgeSize: 0.179
+    - _ShadowEdgeSize: 0.192
     - _ShadowEdgeSizeExtra: 0.05
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -201,7 +202,7 @@ Material:
     - _ColorDimCurve: {r: 0.85023, g: 0.85034, b: 0.8504499, a: 0.85056}
     - _ColorDimExtra: {r: 1, g: 1, b: 1, a: 1}
     - _ColorDimSteps: {r: 0.85023, g: 0.85034, b: 0.8504499, a: 0.85056}
-    - _ColorGradient: {r: 0.85023, g: 0.85034, b: 0.85045, a: 0.85056}
+    - _ColorGradient: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
     - _DetailMapColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FlatRimColor: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
