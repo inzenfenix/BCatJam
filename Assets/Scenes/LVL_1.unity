@@ -1959,7 +1959,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   follow: {fileID: 587956885}
   zoomSpeed: 7
-  distanceFromWall: 2.5
+  distanceFromWall: 2
   wallMask:
     serializedVersion: 2
     m_Bits: 65536
@@ -2438,6 +2438,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3680952266634089472, guid: 11bcfe0917460f041a067bd64ebb3076,
+        type: 3}
+      propertyPath: m_Speed
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4422096712983320933, guid: 11bcfe0917460f041a067bd64ebb3076,
         type: 3}
