@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
@@ -53,28 +54,48 @@ public class CameraManager : MonoBehaviour
         {
             Vector3 distance = follow.position - hit.point;
 
-            offset.x += distanceFromWall - distance.x;
+            float direction = 1;
+
+            if(distance.x < 0)
+                direction = -1;
+
+            offset.x += direction * (distanceFromWall - Mathf.Abs(distance.x));
         }
 
         if (Physics.Raycast(follow.position, -Vector3.right, out hit, distanceFromWall, wallMask))
         {
             Vector3 distance =  follow.position - hit.point;
 
-            offset.x += distanceFromWall - distance.x;
+            float direction = 1;
+
+            if (distance.x < 0)
+                direction = -1;
+
+            offset.x += direction * (distanceFromWall - Mathf.Abs(distance.x));
         }
 
         if (Physics.Raycast(follow.position, Vector3.forward, out hit, distanceFromWall, wallMask))
         {
             Vector3 distance = follow.position - hit.point;
 
-            offset.z += distanceFromWall - distance.z;
+            float direction = 1;
+
+            if (distance.z < 0)
+                direction = -1;
+
+            offset.z += direction * (distanceFromWall - Mathf.Abs(distance.z));
         }
 
         if (Physics.Raycast(follow.position, -Vector3.forward, out hit, distanceFromWall, wallMask))
         {
             Vector3 distance = follow.position - hit.point;
 
-            offset.z += distanceFromWall - distance.z;
+            float direction = 1;
+
+            if (distance.z < 0)
+                direction = -1;
+
+            offset.z += direction * (distanceFromWall - Mathf.Abs(distance.z));
         }
 
         Vector3 finalPos = originalPos + offset;

@@ -36,7 +36,7 @@ Material:
     - _FaceNormalFactor: 0.161
     - _FaceViewProdThresh: 1
     - _FinJointNum: 8
-    - _FinLength: 0.113
+    - _FinLength: 0.027
     - _Metallic: 0.069
     - _NormalScale: 1.25
     - _Occlusion: 0
