@@ -20,7 +20,7 @@ public class RatBehaviour : MonoBehaviour
     [HideInInspector]
     public bool battling;
 
-    private float radius = 3f;
+    private float radius = 2f;
 
     private Transform currentCat;
 
@@ -103,7 +103,7 @@ public class RatBehaviour : MonoBehaviour
             {
                 FollowerBehaviour tempCat = collider.GetComponent<FollowerBehaviour>();
 
-                if (tempCat.GetHealth() <= 0)
+                if (tempCat.GetHealth() <= 0 || Mathf.Abs(transform.position.y - tempCat.transform.position.y) > .6f)
                 {
                     continue;
                 }
