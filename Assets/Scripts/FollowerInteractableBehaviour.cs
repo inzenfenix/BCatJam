@@ -72,7 +72,7 @@ public class FollowerInteractableBehaviour : MonoBehaviour
                     GameManager.CurrentFillMeter -= fillMeterAmount;
                 }
 
-                if(this.CompareTag("Destroyable"))
+                if(this.CompareTag("Interactable"))
                 {
                     GameManager.CurrentFillMeter += fillMeterAmount;
                 }
