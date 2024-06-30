@@ -81,12 +81,14 @@ public class FollowerBehaviour : MonoBehaviour
 
         if (!following) return;
 
-        agent.destination = CaptainCatBehaviour.currentPos * 0.95f + CaptainCatBehaviour.behindPos;
+        agent.destination = CaptainCatBehaviour.currentPos + CaptainCatBehaviour.behindPos * .7f;
 
-        if (Vector3.Distance(transform.position, agent.destination) < .45f)
+        if (Vector3.Distance(transform.position, agent.destination) < .07f)
         {
             agent.destination = transform.position;
         }
+
+        
     }
 
     private void CaptainCatBehaviour_onAttackObject(object sender, Transform e)

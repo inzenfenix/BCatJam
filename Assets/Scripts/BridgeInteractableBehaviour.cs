@@ -4,13 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshObstacle))]
 [RequireComponent (typeof(Collider))]
 public class BridgeInteractableBehaviour : FollowerInteractableBehaviour
 {
 
-    private NavMeshObstacle obstacle;
-    private Collider obstacleCollider;
+    [SerializeField] private NavMeshObstacle obstacle;
 
     private Quaternion originalRotation;
     private Quaternion finalRotation;
@@ -19,16 +17,18 @@ public class BridgeInteractableBehaviour : FollowerInteractableBehaviour
 
     [SerializeField] private GameObject canvas;
 
+    [SerializeField] private int floorMask;
+
     protected override void Awake()
     {
         base.Awake();
 
-        obstacleCollider = GetComponent<Collider>();
-        obstacle = GetComponent<NavMeshObstacle>();
         obstacle.enabled = true;
 
-        originalRotation = Quaternion.Euler(0, 0, 0);
-        finalRotation = Quaternion.Euler(0, 0, -90);
+        obstacle.gameObject.SetActive(true);
+
+        originalRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, -90);
+        finalRotation = Quaternion.Euler(originalRotation.eulerAngles.x, originalRotation.eulerAngles.y, transform.rotation.z);
 
         transform.rotation = originalRotation;
     }
@@ -50,7 +50,7 @@ public class BridgeInteractableBehaviour : FollowerInteractableBehaviour
     private IEnumerator RotateBridge()
     {
         float time = 0;
-        transform.gameObject.layer = 0;
+        transform.gameObject.layer = LayerMask.NameToLayer("Floor"); ;
         canvas.SetActive(false);
 
         float speed = 1.0f;
@@ -66,6 +66,5 @@ public class BridgeInteractableBehaviour : FollowerInteractableBehaviour
         yield return new WaitForSeconds(2f);
 
         obstacle.enabled = false;
-        obstacleCollider.enabled = false;
     }
 }

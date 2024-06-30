@@ -174,7 +174,7 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
                 return;
             }
 
-            if (Vector3.Distance(transform.position, attackingTransform.position) < 3f)
+            if (Vector3.Distance(transform.position, attackingTransform.position) < 2f)
             {
                 followerBehaviour.transform.forward = attackingTransform.position - followerBehaviour.transform.position;
 
@@ -195,7 +195,7 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
                 return;
             }
 
-            if (Vector3.Distance(transform.position, attackingTransform.position) < 6f)
+            if (Vector3.Distance(transform.position, attackingTransform.position) < 4f)
             {
                 followerBehaviour.transform.forward = attackingTransform.position - followerBehaviour.transform.position;
 

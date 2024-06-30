@@ -26,6 +26,8 @@ public class CaptainCatBehaviour : MonoBehaviour
     private float delay = .4f;
     private float delayTime = .35f;
 
+    public int coins = 5;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -70,6 +72,9 @@ public class CaptainCatBehaviour : MonoBehaviour
         {
             if(Vector3.Distance(transform.position, GameManager.MouseToWorldPosition()) > 10f)
             {
+                behindPos = -transform.forward;
+                currentPos = transform.position;
+
                 return;
             }
 
@@ -77,8 +82,10 @@ public class CaptainCatBehaviour : MonoBehaviour
             {
                 FollowerBehaviour cat = follower.GetComponent<FollowerBehaviour>();
 
-                if (!cats.Contains(cat))
+                if (!cats.Contains(cat) && coins > 0)
                 {
+                    coins--;
+
                     cat.onDeath += Cat_onDeath;
                     cat.onFinishedInteracting += Cat_onFinishedInteracting;
                     cats.Add(cat);
