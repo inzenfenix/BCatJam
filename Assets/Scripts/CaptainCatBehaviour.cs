@@ -68,6 +68,11 @@ public class CaptainCatBehaviour : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            if(Vector3.Distance(transform.position, GameManager.MouseToWorldPosition()) > 10f)
+            {
+                return;
+            }
+
             if (GameManager.instance.HitFollower(out Transform follower))
             {
                 FollowerBehaviour cat = follower.GetComponent<FollowerBehaviour>();
