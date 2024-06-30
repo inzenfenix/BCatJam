@@ -46,6 +46,26 @@ public class CaptainCatBehaviour : MonoBehaviour
 
     private void Update()
     {
+        if(cats.Count > 0 && catsThrown != 0)
+        {
+            bool isActuallyAttacking = false;
+
+            for(int i = 0; i < cats.Count; i++)
+            {
+                if (cats[i].attacking)
+                {
+                    isActuallyAttacking = true;
+                    break;
+                }
+            }
+
+            if(!isActuallyAttacking)
+            {
+                catsThrown = 0;
+            }
+
+        }
+
         if(Input.GetMouseButtonDown(0))
         {
             if (GameManager.instance.HitFollower(out Transform follower))
@@ -64,6 +84,9 @@ public class CaptainCatBehaviour : MonoBehaviour
 
             if (GameManager.instance.HitDestroyableInteractable(out Transform destroyablePos))
             {
+                if (catsThrown >= cats.Count || cats.Count <= 0) 
+                    return;
+
                 onAttackObject?.Invoke(this, destroyablePos);
                 onAttackObjectForUI?.Invoke(this, destroyablePos);
 
@@ -165,6 +188,8 @@ public class CaptainCatBehaviour : MonoBehaviour
 
     private void Cat_onFinishedInteracting(object sender, EventArgs e)
     {
+        if (catsThrown <= 0) return;
+
         catsThrown--;
     }
 
@@ -172,7 +197,10 @@ public class CaptainCatBehaviour : MonoBehaviour
     {
         FollowerBehaviour cat = sender as FollowerBehaviour;
 
-        cats.Remove(cat);
+        if (cats.Contains(cat))
+            cats.Remove(cat);
+
+        else return;
 
         cat.onFinishedInteracting -= Cat_onFinishedInteracting;;
         cat.onDeath -= Cat_onDeath;

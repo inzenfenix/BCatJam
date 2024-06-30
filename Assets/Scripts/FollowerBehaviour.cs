@@ -97,6 +97,7 @@ public class FollowerBehaviour : MonoBehaviour
     {
         if (!following) return;
 
+        onStartedInteracting?.Invoke(this, e);
         agent.destination = e.position;
         currentlyAttacking = e.transform;
         attacking = true;
@@ -138,6 +139,11 @@ public class FollowerBehaviour : MonoBehaviour
         {
             hp = 0;
             onDeath?.Invoke(this, EventArgs.Empty);
+
+            attacking = false;
+            currentlyAttacking = null;
+
+
             StopFollowing();
         }
     }

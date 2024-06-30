@@ -40,8 +40,9 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
 
         followerBehaviour.onStartedInteracting += FollowerBehaviour_onStartedInteracting;
         followerBehaviour.onFinishedInteracting += FollowerBehaviour_onFinishedInteracting;
-    }
 
+        followerBehaviour.onDeath += FollowerBehaviour_onDeath;
+    }
     private void OnDisable()
     {
         followerBehaviour.onStartFollowing -= FollowerBehaviour_onStartFollowing;
@@ -49,6 +50,15 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
         followerBehaviour.onStartedInteracting -= FollowerBehaviour_onStartedInteracting;
         followerBehaviour.onFinishedInteracting -= FollowerBehaviour_onFinishedInteracting;
 
+        followerBehaviour.onDeath -= FollowerBehaviour_onDeath;
+
+    }
+
+    private void FollowerBehaviour_onDeath(object sender, System.EventArgs e)
+    {
+        startedFunctioning = false;
+
+        animator.SetTrigger("IsDead");
     }
 
     private void FollowerBehaviour_onStartedInteracting(object sender, Transform e)
