@@ -23,8 +23,13 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
 
     Transform attackingTransform;
 
+    [Header("\nStart sounds")]
     [SerializeField] private AudioSource startSource;
     [SerializeField] private AudioClip[] startClips;
+
+    [Header("\nSent sounds")]
+    [SerializeField] private AudioSource sentSource;
+    [SerializeField] private AudioClip[] sentClips;
 
     private void Awake()
     {
@@ -74,7 +79,13 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
 
     private void FollowerBehaviour_onStartedInteracting(object sender, Transform e)
     {
-        if(e.CompareTag("Bridge"))
+        if (sentClips.Length > 0 && (!pushing && !punching))
+        {
+            sentSource.clip = sentClips[Random.Range(0, sentClips.Length)];
+            sentSource.Play();
+        }
+
+        if (e.CompareTag("Bridge"))
         {
             attackingTransform = e;
             pushing = true;
