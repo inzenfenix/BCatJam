@@ -16,6 +16,9 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
     private bool pushing = false;
     private bool startedPushing = false;
 
+    private bool punching = false;
+    private bool startedPunching = false;
+
     [SerializeField] FollowerBehaviour followerBehaviour;
 
     Transform attackingTransform;
@@ -59,6 +62,14 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
         startedFunctioning = false;
 
         animator.SetTrigger("IsDead");
+
+        if(punching || startedPunching)
+        {
+            punching = false;
+            startedPunching = false;
+
+            animator.SetBool("IsPunching", punching);
+        }
     }
 
     private void FollowerBehaviour_onStartedInteracting(object sender, Transform e)
@@ -67,6 +78,16 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
         {
             attackingTransform = e;
             pushing = true;
+
+            return;
+        }
+
+        if (e.CompareTag("Rat") || e.CompareTag("Interactable"))
+        {
+            attackingTransform = e;
+            punching = true;
+
+            return;
         }
     }
 
@@ -74,12 +95,23 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
     {
         if(pushing)
         {
+            attackingTransform = null;
+
             startedPushing = false;
             pushing = false;
             animator.SetBool("IsPushing", pushing);
-
-            return;
         }
+
+        if (punching)
+        {
+            attackingTransform = null;
+
+            startedPunching = false;
+            punching = false;
+            animator.SetBool("IsPunching", punching);
+        }
+
+        transform.forward = CaptainCatBehaviour.currentPos - transform.forward;
     }
 
 
@@ -114,6 +146,8 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
         {
             if(attackingTransform == null)
             {
+                transform.forward = CaptainCatBehaviour.currentPos - transform.forward;
+
                 startedPushing = false;
                 pushing = false;
                 animator.SetBool("IsPushing", pushing);
@@ -122,8 +156,31 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
 
             if (Vector3.Distance(transform.position, attackingTransform.position) < 3f)
             {
+                transform.forward = attackingTransform.position - transform.forward;
+
                 startedPushing = true;
                 animator.SetBool("IsPushing", pushing);
+            }
+        }
+
+        if (punching && !startedPunching)
+        {
+            if (attackingTransform == null)
+            {
+                transform.forward = CaptainCatBehaviour.currentPos - transform.forward;
+
+                startedPunching = false;
+                punching = false;
+                animator.SetBool("IsPunching", punching);
+                return;
+            }
+
+            if (Vector3.Distance(transform.position, attackingTransform.position) < 6f)
+            {
+                transform.forward = attackingTransform.position - transform.forward;
+
+                startedPunching = true;
+                animator.SetBool("IsPunching", punching);
             }
         }
 

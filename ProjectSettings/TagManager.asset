@@ -7,7 +7,7 @@ TagManager:
   - Follower
   - Captain
   - Rat
-  - Destroyable
+  - Interactable
   - Bridge
   layers:
   - Default
