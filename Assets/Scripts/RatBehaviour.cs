@@ -17,7 +17,8 @@ public class RatBehaviour : MonoBehaviour
 
     private int curPos = 0;
 
-    private bool battling;
+    [HideInInspector]
+    public bool battling;
 
     private float radius = 3f;
 
@@ -29,6 +30,8 @@ public class RatBehaviour : MonoBehaviour
     private float delayTime = 1.25f;
 
     [SerializeField] private int damagePerTickRate = 1;
+
+    public int health = 3;
 
     private void Awake()
     {

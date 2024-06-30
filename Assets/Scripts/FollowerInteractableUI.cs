@@ -30,9 +30,17 @@ public class FollowerInteractableUI : MonoBehaviour
 
         if(mDestroyable.gettingDestroyed)
         {
+
             borderImage.color += new Color(0, 0, 0, Time.deltaTime * fadeIn);
 
             fillImage.fillAmount = mDestroyable.currentTime / mDestroyable.timeToBeDestroyed;
+        }
+
+        else
+        {
+            borderImage.color -= new Color(0, 0, 0, borderImage.color.a);
+
+            fillImage.fillAmount = 0;
         }
     }
 

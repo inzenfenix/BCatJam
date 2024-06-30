@@ -66,7 +66,7 @@ public class CaptainCatBehaviour : MonoBehaviour
 
         }
 
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             if (GameManager.instance.HitFollower(out Transform follower))
             {
@@ -103,8 +103,7 @@ public class CaptainCatBehaviour : MonoBehaviour
 
             
         }
-
-        if(Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1))
         {
             if(cats.Count <= 0)
             {

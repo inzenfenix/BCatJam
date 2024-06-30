@@ -43,6 +43,12 @@ public class FollowerBehaviour : MonoBehaviour
 
         if(transform == currentlyAttacking)
         {
+            if (currentlyAttacking.CompareTag("Rat"))
+            {
+                if (currentlyAttacking.GetComponent<RatBehaviour>().health > 1)
+                    return;
+            }
+
             currentlyAttacking = null;
         }
     }
@@ -77,7 +83,7 @@ public class FollowerBehaviour : MonoBehaviour
 
         agent.destination = CaptainCatBehaviour.currentPos * 0.95f + CaptainCatBehaviour.behindPos;
 
-        if (Vector3.Distance(transform.position, agent.destination) < .7f)
+        if (Vector3.Distance(transform.position, agent.destination) < .45f)
         {
             agent.destination = transform.position;
         }
