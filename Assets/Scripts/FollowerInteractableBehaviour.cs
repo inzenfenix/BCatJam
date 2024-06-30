@@ -78,6 +78,7 @@ public class FollowerInteractableBehaviour : MonoBehaviour
                 }
 
                 onObjectGettingDestroyed?.Invoke(this, EventArgs.Empty);
+                currentTime = 0;
                 OnDeath();
             }
         }

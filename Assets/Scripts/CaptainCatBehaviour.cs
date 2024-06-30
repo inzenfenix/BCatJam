@@ -66,8 +66,13 @@ public class CaptainCatBehaviour : MonoBehaviour
 
         }
 
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
+            if(Vector3.Distance(transform.position, GameManager.MouseToWorldPosition()) > 10f)
+            {
+                return;
+            }
+
             if (GameManager.instance.HitFollower(out Transform follower))
             {
                 FollowerBehaviour cat = follower.GetComponent<FollowerBehaviour>();
@@ -103,8 +108,7 @@ public class CaptainCatBehaviour : MonoBehaviour
 
             
         }
-
-        if(Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1))
         {
             if(cats.Count <= 0)
             {
