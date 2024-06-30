@@ -31,6 +31,14 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
     [SerializeField] private AudioSource sentSource;
     [SerializeField] private AudioClip[] sentClips;
 
+    [Header("\nWalk sounds")]
+    [SerializeField] private AudioSource walkingSource;
+    [SerializeField] private AudioClip[] walkingClips;
+
+    private float walkTime = .9f;
+    private float minWalkTime = .8f;
+    private int currentSound = 0;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -153,6 +161,7 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
     {
         if (!startedFunctioning) return;
 
+
         if(pushing && !startedPushing)
         {
             if(attackingTransform == null)
@@ -195,6 +204,11 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
             }
         }
 
+        if (walking && !startedPunching && !startedPushing)
+        {
+            WalkingSounds();
+        }
+
         if (agent.velocity.magnitude > 0.75f && !walking)
         {
             walking = true;
@@ -205,6 +219,37 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
         {
             walking = false;
             animator.SetBool("IsWalking", false);
+        }
+    }
+
+    private void WalkingSounds()
+    {
+        if (walkTime < minWalkTime)
+        {
+            walkTime += Time.deltaTime;
+            return;
+        }
+
+        else
+        {
+            walkTime = 0;
+            if (walkingClips.Length > 0)
+            {
+                walkingSource.clip = walkingClips[currentSound];
+                walkingSource.Play();
+
+                NextWalkingSound();
+            }
+        }
+    }
+
+    private void NextWalkingSound()
+    {
+        currentSound++;
+
+        if (currentSound >= walkingClips.Length)
+        {
+            currentSound = 0;
         }
     }
 }

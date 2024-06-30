@@ -16,7 +16,7 @@ public class CatAnimatorBehaviour : MonoBehaviour
     [SerializeField] private AudioClip[] walkingClips;
 
     private float walkTime = .8f;
-    private float minWalkTime = .5f;
+    private float minWalkTime = .7f;
     private int currentSound = 0;
 
     private void Awake()
