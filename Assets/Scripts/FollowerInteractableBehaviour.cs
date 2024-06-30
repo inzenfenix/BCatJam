@@ -19,7 +19,7 @@ public class FollowerInteractableBehaviour : MonoBehaviour
 
     protected bool beingAttacked = false;
 
-    
+    [HideInInspector]
     public bool gettingDestroyed = false;
 
     public float timeToBeDestroyed = 5f;

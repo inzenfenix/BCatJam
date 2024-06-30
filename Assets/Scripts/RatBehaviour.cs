@@ -7,6 +7,9 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class RatBehaviour : MonoBehaviour
 {
+    public event EventHandler<Transform> onStartedAttacking;
+    public event EventHandler onFinishedAttacking;
+
     [SerializeField] Transform[] transformsPositions;
     private Vector3[] positions;
 
@@ -60,6 +63,7 @@ public class RatBehaviour : MonoBehaviour
 
             if(currentCat.GetComponent<FollowerBehaviour>().GetHealth() <= 0)
             {
+                onFinishedAttacking?.Invoke(this, EventArgs.Empty);
                 currentCat = null;
             }
 
@@ -103,6 +107,7 @@ public class RatBehaviour : MonoBehaviour
 
                 else
                 {
+                    onStartedAttacking?.Invoke(this, tempCat.transform);
                     currentCat = tempCat.transform;
                     battling = true;
                     break;
