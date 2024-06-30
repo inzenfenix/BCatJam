@@ -14,7 +14,7 @@ public class CameraManager : MonoBehaviour
 
     private float zoom;
     private float minZoom = 25f;
-    private float maxZoom = 60f;
+    private float maxZoom = 75f;
 
     private float delay = 0.0f;
     private float mouseDirection;
@@ -28,6 +28,8 @@ public class CameraManager : MonoBehaviour
 
         originalPos = _camera.transform.position - follow.position;
         zoom = maxZoom;
+
+        _camera.fieldOfView = maxZoom;
     }
 
     private void Update()

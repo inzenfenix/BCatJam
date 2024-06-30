@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 100222037306932736}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.91, y: -0.89, z: 1.32}
+  m_LocalPosition: {x: -1.580492, y: -0.89, z: -3.099401}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -426,7 +426,7 @@ Transform:
   m_GameObject: {fileID: 3266912566621509793}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.06, y: -0.89, z: 11.09}
+  m_LocalPosition: {x: -3.8165164, y: -0.89, z: 2.9140825}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -596,7 +596,7 @@ Transform:
   m_GameObject: {fileID: 7419316525654003837}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.91, y: -0.89, z: 11.09}
+  m_LocalPosition: {x: -5.5579777, y: -0.89, z: -0.4004631}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -627,7 +627,7 @@ Transform:
   m_GameObject: {fileID: 7634056711005264056}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.06, y: -0.89, z: 1.09}
+  m_LocalPosition: {x: -0.06000186, y: -0.89, z: -0.23582518}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -646,7 +646,7 @@ GameObject:
   - component: {fileID: 6781552491250487162}
   - component: {fileID: 4718084372900829213}
   - component: {fileID: 7126539463581045659}
-  - component: {fileID: 4999996550058997086}
+  - component: {fileID: 1112348775513789841}
   m_Layer: 14
   m_Name: Rat
   m_TagString: Rat
@@ -664,7 +664,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 40.06, y: 0.899, z: 8.9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1327683336543229438}
@@ -705,7 +705,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8223947465834983034}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.83
+  m_Radius: 0.95
   m_Speed: 3.2
   m_Acceleration: 8
   avoidancePriority: 50
@@ -739,6 +739,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   damagePerTickRate: 1
+  health: 3
 --- !u!114 &7126539463581045659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -754,7 +755,7 @@ MonoBehaviour:
   text: {fileID: 8030000849546552332}
   fillImage: {fileID: 8669850241229730659}
   borderImage: {fileID: 7069569319396523216}
---- !u!114 &4999996550058997086
+--- !u!114 &1112348775513789841
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -763,7 +764,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8223947465834983034}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b286842a88079ed4abcda9fd90124a50, type: 3}
+  m_Script: {fileID: 11500000, guid: f7e19c2504e75e94e89785f486d35f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfCatsToDestroy: 5
