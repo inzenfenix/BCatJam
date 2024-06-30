@@ -75,9 +75,9 @@ public class FollowerBehaviour : MonoBehaviour
 
         if (!following) return;
 
-        agent.destination = CaptainCatBehaviour.currentPos * 0.92f + CaptainCatBehaviour.behindPos;
+        agent.destination = CaptainCatBehaviour.currentPos * 0.95f + CaptainCatBehaviour.behindPos;
 
-        if (Vector3.Distance(transform.position, agent.destination) < 1.4f)
+        if (Vector3.Distance(transform.position, agent.destination) < .7f)
         {
             agent.destination = transform.position;
         }
