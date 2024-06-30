@@ -44,9 +44,9 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _SeeTroughDistance: 2.5
+    - _SeeTroughDistance: 3.64
     m_Colors:
-    - _Color: {r: 0, g: 1, b: 0.13396597, a: 0}
+    - _Color: {r: 1, g: 0.11818848, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2543616150836132478
 MonoBehaviour:

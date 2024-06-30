@@ -111,7 +111,7 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
             animator.SetBool("IsPunching", punching);
         }
 
-        transform.forward = CaptainCatBehaviour.currentPos - transform.forward;
+        followerBehaviour.transform.forward = CaptainCatBehaviour.currentPos - transform.position;
     }
 
 
@@ -146,7 +146,7 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
         {
             if(attackingTransform == null)
             {
-                transform.forward = CaptainCatBehaviour.currentPos - transform.forward;
+                followerBehaviour.transform.forward = CaptainCatBehaviour.currentPos - followerBehaviour.transform.position;
 
                 startedPushing = false;
                 pushing = false;
@@ -156,7 +156,7 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
 
             if (Vector3.Distance(transform.position, attackingTransform.position) < 3f)
             {
-                transform.forward = attackingTransform.position - transform.forward;
+                followerBehaviour.transform.forward = attackingTransform.position - followerBehaviour.transform.position;
 
                 startedPushing = true;
                 animator.SetBool("IsPushing", pushing);
@@ -167,7 +167,7 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
         {
             if (attackingTransform == null)
             {
-                transform.forward = CaptainCatBehaviour.currentPos - transform.forward;
+                followerBehaviour.transform.forward = CaptainCatBehaviour.currentPos - followerBehaviour.transform.position;
 
                 startedPunching = false;
                 punching = false;
@@ -177,7 +177,7 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
 
             if (Vector3.Distance(transform.position, attackingTransform.position) < 6f)
             {
-                transform.forward = attackingTransform.position - transform.forward;
+                followerBehaviour.transform.forward = attackingTransform.position - followerBehaviour.transform.position;
 
                 startedPunching = true;
                 animator.SetBool("IsPunching", punching);

@@ -19,7 +19,7 @@ public class FollowerInteractableBehaviour : MonoBehaviour
 
     protected bool beingAttacked = false;
 
-    [HideInInspector]
+    
     public bool gettingDestroyed = false;
 
     public float timeToBeDestroyed = 5f;
@@ -109,9 +109,10 @@ public class FollowerInteractableBehaviour : MonoBehaviour
             //Destroy(this.gameObject);
         }
 
-        else if(numberOfCatsToDestroy <= currentCatsOn.Count && gettingDestroyed)
+        if(numberOfCatsToDestroy <= currentCatsOn.Count && gettingDestroyed)
         {
-            float multiplier = (currentCatsOn.Count - numberOfCatsToDestroy) / 10;
+
+            float multiplier = (float)(currentCatsOn.Count - numberOfCatsToDestroy) / 5;
 
             interactionSpeedMultiplier = interactionSpeedMultiplierDefault + multiplier;
         }
