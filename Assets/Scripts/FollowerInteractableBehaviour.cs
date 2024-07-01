@@ -35,6 +35,13 @@ public class FollowerInteractableBehaviour : MonoBehaviour
     protected virtual void Awake()
     {
         currentCatsOn = new List<Transform>();
+
+        beingAttacked = false;
+        gettingDestroyed = false;
+        timeToBeDestroyed = 5f;
+        currentTime = 0f;
+
+        interactionSpeedMultiplier = 1f;
     }
 
     private void OnEnable()

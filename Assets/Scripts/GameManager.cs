@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class GameManager : MonoBehaviour
     public LayerMask catMask;
 
     private static float currentFillMeter;
+
+    public bool startedPlaying = false;
+    [SerializeField] private GameObject initialPanel;
 
     public static float CurrentFillMeter
     {
@@ -33,6 +37,20 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        startedPlaying = false;
+        currentFillMeter = 0;
+
+    }
+
+    private void Update()
+    {
+#if UNITY_EDITOR
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+#endif
     }
 
     public static Vector3 MouseToWorldPosition()
@@ -94,5 +112,11 @@ public class GameManager : MonoBehaviour
 
         follower = null;
         return false;
+    }
+
+    public void StartTheGame()
+    {
+        startedPlaying = true;
+        initialPanel.SetActive(false);
     }
 }

@@ -48,6 +48,8 @@ public class CaptainCatBehaviour : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.instance.startedPlaying) return;
+
         if(cats.Count > 0 && catsThrown != 0)
         {
             bool isActuallyAttacking = false;

@@ -33,6 +33,8 @@ public class BridgeInteractableBehaviour : FollowerInteractableBehaviour
         finalRotation = Quaternion.Euler(originalRotation.eulerAngles.x, originalRotation.eulerAngles.y, transform.rotation.z);
 
         transform.rotation = originalRotation;
+
+        gettingPushed = false;
     }
 
     protected override void Update()
