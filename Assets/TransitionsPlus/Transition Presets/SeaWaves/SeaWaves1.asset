@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: SeaWaves1
   m_EditorClassIdentifier: 
   type: 40
-  invert: 1
+  invert: 0
   timeMultiplier: 1
-  colorMode: 0
+  colorMode: 2
   color: {r: 0, g: 0, b: 0, a: 1}
   gradient:
     serializedVersion: 2
