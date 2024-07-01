@@ -68,6 +68,20 @@ public class CaptainCatBehaviour : MonoBehaviour
 
         }
 
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            if (cats.Count < 0) return;
+
+            for(int i = 0; i < cats.Count; i++)
+            {
+                cats[i].StopAttacking();
+            }
+
+            catsThrown = 0;
+            catsToThrow = 0;
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             if(Vector3.Distance(transform.position, GameManager.MouseToWorldPosition()) > 10f)

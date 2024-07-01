@@ -19,6 +19,8 @@ public class BridgeInteractableBehaviour : FollowerInteractableBehaviour
 
     [SerializeField] private int floorMask;
 
+    [SerializeField] private float finalAngles = -90;
+
     protected override void Awake()
     {
         base.Awake();
@@ -27,7 +29,7 @@ public class BridgeInteractableBehaviour : FollowerInteractableBehaviour
 
         obstacle.gameObject.SetActive(true);
 
-        originalRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, -90);
+        originalRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, finalAngles);
         finalRotation = Quaternion.Euler(originalRotation.eulerAngles.x, originalRotation.eulerAngles.y, transform.rotation.z);
 
         transform.rotation = originalRotation;
@@ -63,7 +65,7 @@ public class BridgeInteractableBehaviour : FollowerInteractableBehaviour
             yield return new WaitForSeconds(.01f);
         }
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(.1f);
 
         obstacle.enabled = false;
     }

@@ -33,6 +33,8 @@ public class RatBehaviour : MonoBehaviour
 
     public int health = 3;
 
+    private bool changing = false;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -120,15 +122,25 @@ public class RatBehaviour : MonoBehaviour
             return;
         }
 
-        if (agent.destination != positions[curPos])
+        if (agent.destination != positions[curPos] && !changing)
         {
-            agent.destination = positions[curPos];
+            StartCoroutine(ChangingPos());
         }
 
-        if(Vector3.Distance(transform.position, agent.destination) < 2f)
+        if(Vector3.Distance(transform.position, agent.destination) < 2f && !changing)
         {
             NextPos();
         }
+    }
+
+    private IEnumerator ChangingPos()
+    {
+        changing = true;
+
+        yield return new WaitForSeconds(1f);
+
+        agent.destination = positions[curPos];
+        changing = false;
     }
 
     private void NextPos()

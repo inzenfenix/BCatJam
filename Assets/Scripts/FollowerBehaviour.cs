@@ -22,6 +22,8 @@ public class FollowerBehaviour : MonoBehaviour
     public event EventHandler<Transform> onStartedInteracting;
     public event EventHandler onFinishedInteracting;
 
+    public static event EventHandler<Transform> onStoppedInteracting;
+
     private int hp = 3;
 
     private void Awake()
@@ -89,6 +91,20 @@ public class FollowerBehaviour : MonoBehaviour
         }
 
         
+    }
+
+    public void StopAttacking()
+    {
+        if (!attacking)
+            return;
+
+        attacking = false;
+        following = true;
+        onStoppedInteracting?.Invoke(this, currentlyAttacking);
+
+        currentlyAttacking = null;
+        
+        onFinishedInteracting?.Invoke(this, EventArgs.Empty);
     }
 
     private void CaptainCatBehaviour_onAttackObject(object sender, Transform e)

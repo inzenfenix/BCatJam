@@ -161,7 +161,6 @@ public class FollowerAnimatorBehaviour : MonoBehaviour
     {
         if (!startedFunctioning) return;
 
-
         if(pushing && !startedPushing)
         {
             if(attackingTransform == null)

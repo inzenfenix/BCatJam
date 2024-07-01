@@ -30,7 +30,7 @@ public class FollowerInteractableBehaviour : MonoBehaviour
     protected float interactionSpeedMultiplier = 1f;
     protected float interactionSpeedMultiplierDefault = 1f;
 
-    [SerializeField] protected float fillMeterAmount = .1f; 
+    [SerializeField] protected float fillMeterAmount = .1f;
 
     protected virtual void Awake()
     {
@@ -40,6 +40,19 @@ public class FollowerInteractableBehaviour : MonoBehaviour
     private void OnEnable()
     {
         CaptainCatBehaviour.onAttackObject += CaptainCatBehaviour_onAttackObject;
+        FollowerBehaviour.onStoppedInteracting += FollowerBehaviour_onStoppedInteracting;
+    }
+
+    private void FollowerBehaviour_onStoppedInteracting(object sender, Transform e)
+    {
+        if(e == this.transform)
+        {
+            beingAttacked = false;
+            gettingDestroyed = false;
+            currentCatsOn = new List<Transform>();
+
+            onChangeAmountOfCats?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     private void CaptainCatBehaviour_onAttackObject(object sender, Transform e)
@@ -58,6 +71,7 @@ public class FollowerInteractableBehaviour : MonoBehaviour
     private void OnDisable()
     {
         CaptainCatBehaviour.onAttackObject -= CaptainCatBehaviour_onAttackObject;
+        FollowerBehaviour.onStoppedInteracting -= FollowerBehaviour_onStoppedInteracting;
     }
 
     protected virtual void Update()
@@ -86,7 +100,13 @@ public class FollowerInteractableBehaviour : MonoBehaviour
         if (!beingAttacked)
         {
             if (currentCatsOn != null)
-                currentCatsOn = new List<Transform>();
+            {
+                if(currentCatsOn.Count > 0)
+                {
+                    currentCatsOn = new List<Transform>();
+                }
+                
+            }
             return;
         }
 

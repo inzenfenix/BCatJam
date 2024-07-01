@@ -18,6 +18,22 @@ public class RatAnimation : MonoBehaviour
 
     private bool punching = false;
 
+    [Header("\nWalk sounds")]
+    [SerializeField] private AudioSource walkingSource;
+    [SerializeField] private AudioClip[] walkingClips;
+
+    private float walkTime = .9f;
+    private float minWalkTime = .8f;
+    private int currentSound = 0;
+
+    [Header("\nPunching sounds")]
+    [SerializeField] private AudioSource punchingSource;
+    [SerializeField] private AudioClip[] punchingClips;
+
+    private float punchingTime = .9f;
+    private float minPunchingTime = .8f;
+    private int currentPunchingSound = 0;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -38,6 +54,8 @@ public class RatAnimation : MonoBehaviour
     {
         if(punching)
         {
+            PunchingSounds();
+
             if(currentTarget != null)
             {
                 if(Vector3.Distance(transform.position, currentTarget.position) < 3f)
@@ -59,6 +77,11 @@ public class RatAnimation : MonoBehaviour
             walking = false;
             animator.SetTrigger("Idle");
         }
+
+        if (walking && !punching)
+        {
+            WalkingSounds();
+        }
     }
 
     private void RatBehaviour_onStartedAttacking(object sender, Transform e)
@@ -74,5 +97,67 @@ public class RatAnimation : MonoBehaviour
         currentTarget = null;
         punching = false;
         animator.SetBool("IsPunching", punching);
+    }
+
+    private void WalkingSounds()
+    {
+        if (walkTime < minWalkTime)
+        {
+            walkTime += Time.deltaTime;
+            return;
+        }
+
+        else
+        {
+            walkTime = 0;
+            if (walkingClips.Length > 0)
+            {
+                walkingSource.clip = walkingClips[currentSound];
+                walkingSource.Play();
+
+                NextWalkingSound();
+            }
+        }
+    }
+
+    private void NextWalkingSound()
+    {
+        currentSound++;
+
+        if (currentSound >= walkingClips.Length)
+        {
+            currentSound = 0;
+        }
+    }
+
+    private void PunchingSounds()
+    {
+        if (punchingTime < minPunchingTime)
+        {
+            punchingTime += Time.deltaTime;
+            return;
+        }
+
+        else
+        {
+            punchingTime = 0;
+            if (punchingClips.Length > 0)
+            {
+                punchingSource.clip = punchingClips[currentPunchingSound];
+                punchingSource.Play();
+
+                NextPunchingSound();
+            }
+        }
+    }
+
+    private void NextPunchingSound()
+    {
+        currentPunchingSound++;
+
+        if (currentPunchingSound >= punchingClips.Length)
+        {
+            currentPunchingSound = 0;
+        }
     }
 }
